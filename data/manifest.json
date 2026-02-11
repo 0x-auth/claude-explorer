@@ -1,0 +1,55 @@
+{
+  "total_conversations": 1418,
+  "chunks": [
+    {
+      "file": "conversations_01.json",
+      "count": 291,
+      "size_mb": 44.4
+    },
+    {
+      "file": "conversations_02.json",
+      "count": 131,
+      "size_mb": 44.4
+    },
+    {
+      "file": "conversations_03.json",
+      "count": 162,
+      "size_mb": 44.3
+    },
+    {
+      "file": "conversations_04.json",
+      "count": 182,
+      "size_mb": 44.2
+    },
+    {
+      "file": "conversations_05.json",
+      "count": 162,
+      "size_mb": 44.3
+    },
+    {
+      "file": "conversations_06.json",
+      "count": 107,
+      "size_mb": 44.2
+    },
+    {
+      "file": "conversations_07.json",
+      "count": 112,
+      "size_mb": 43.9
+    },
+    {
+      "file": "conversations_08.json",
+      "count": 85,
+      "size_mb": 44.0
+    },
+    {
+      "file": "conversations_09.json",
+      "count": 78,
+      "size_mb": 44.6
+    },
+    {
+      "file": "conversations_10.json",
+      "count": 108,
+      "size_mb": 43.5
+    }
+  ]
+}

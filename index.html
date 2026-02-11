@@ -1013,6 +1013,70 @@
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
         }
+
+        // Auto-load from data folder if manifest exists
+        async function autoLoadData() {
+            try {
+                const manifestRes = await fetch('data/manifest.json');
+                if (!manifestRes.ok) return false;
+
+                const manifest = await manifestRes.json();
+                console.log('Found manifest:', manifest);
+
+                const container = document.getElementById('messages-container');
+                container.innerHTML = `
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">Loading conversations...</div>
+                    </div>
+                `;
+
+                const progressFill = document.getElementById('progress-fill');
+                const progressText = document.getElementById('progress-text');
+
+                let loaded = 0;
+                const total = manifest.chunks.length;
+
+                for (const chunk of manifest.chunks) {
+                    progressText.textContent = `Loading ${chunk.file}...`;
+
+                    try {
+                        const res = await fetch(`data/${chunk.file}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            processConversations(data);
+                        }
+                    } catch (err) {
+                        console.error(`Error loading ${chunk.file}:`, err);
+                    }
+
+                    loaded++;
+                    progressFill.style.width = `${(loaded / total) * 100}%`;
+                }
+
+                progressText.textContent = 'Building index...';
+                await new Promise(r => setTimeout(r, 100));
+
+                buildConversationList();
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>Select a conversation</h2>
+                        <p>Choose from ${manifest.total_conversations} conversations in the sidebar</p>
+                    </div>
+                `;
+
+                return true;
+            } catch (err) {
+                console.log('No manifest found, showing upload UI');
+                return false;
+            }
+        }
+
+        // Try to auto-load on page load
+        autoLoadData();
     </script>
 </body>
 </html>
