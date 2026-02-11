@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# OS
+.DS_Store
+
+# Data files (too large for git)
+*.json
+data/
